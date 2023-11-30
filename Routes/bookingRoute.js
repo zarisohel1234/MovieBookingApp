@@ -111,17 +111,17 @@ bookingsRoutes.get("/getBooking/:id", async (req, res) => {
 
 bookingsRoutes.delete("/deleteBooking/:id", async (req, res) => {
   try {
-    let booking = await Bookings.findByIdAndRemove(req.params.id).populate('user movie');
-    const session=await mongoose.startSession();
+    let booking = await Bookings.findByIdAndRemove(req.params.id).populate(
+      "user movie"
+    );
+    const session = await mongoose.startSession();
     session.startTransaction();
-    
-    return res
-      .status(200)
-      .json({
-        success: true,
-        message: "Booking deleted successfully.",
-        booking,
-      });
+
+    return res.status(200).json({
+      success: true,
+      message: "Booking deleted successfully.",
+      booking,
+    });
   } catch (error) {
     return res.status(500).json({ success: false, message: error.message });
   }
